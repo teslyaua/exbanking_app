@@ -27,6 +27,7 @@ Application API is stored in the app.py file in root. You could use and run it f
 ### Running tests with specific Groups
 By default, all tests would run. Tests can have one or more marks. Marks should be declared in `*.ini` file. You could run 
 just specific group of tests used '-m' parameter, e.g.
+
 `pipenv run pytest api_tests/tests_ex_banking.py -m "api and regression"`
 
 ### Test report tool
@@ -35,8 +36,10 @@ Project use Allure Framework as a flexible lightweight multi-language test repor
 More info: [allure docs](https://docs.qameta.io/allure/)
 
 #### For generating report after local run: 
+
 `pipenv run allure serve tests_report`
 
 ### Performance tests tool
 Project use a Locust as an open source load testing tool. For run performance test tool: 
+
 `locust -f performance_tests/test_perf_api.py`
