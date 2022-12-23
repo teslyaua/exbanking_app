@@ -3,7 +3,6 @@ jobs:
   trigger-e2e-tests:
     docker:
       - image: mcr.microsoft.com/playwright:v1.28.0-focal
-    resource_class: coingaming/yoloplane-runners
     steps:
       - checkout
       - run:
