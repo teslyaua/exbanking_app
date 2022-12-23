@@ -10,7 +10,7 @@ jobs:
           command: |
             curl --location --request POST 'https://circleci.com/api/v2/project/github/coingaming/hi_casino_e2e_tests/pipeline' \
             --header 'Content-Type: application/json' \
-            -u "10f4a80a48e59254cc9896f49921cf37d8ee6a1d:"
+            -u "${E2E_TESTS_API_TOKEN}:"
 workflows:
   trigger-e2e-tests-workflow:
     jobs:
