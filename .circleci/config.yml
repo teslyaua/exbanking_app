@@ -24,9 +24,9 @@ jobs:
             echo "Status E2E_TESTS_API_TOKEN: ${E2E_TESTS_API_TOKEN}"
             echo "Status PIPELINE: ${PIPELINE}"
 
-            sleep 5
+            sleep 3
 
-            STATUS=$(curl -s 'https://circleci.com/api/v2/pipeline/${PIPELINE}/workflow?circle-token=${E2E_TESTS_API_TOKEN}' | jq -r '.items[].status')
+            STATUS=$(curl -s "https://circleci.com/api/v2/pipeline/${PIPELINE}/workflow?circle-token=${E2E_TESTS_API_TOKEN}" | jq -r '.items[].status')
 
             echo "STATUS: ${STATUS}"
 
