@@ -41,7 +41,10 @@ jobs:
       - run:
           name: Get status new pipeline
           command: |
-            STATUS=$(curl -s "https://circleci.com/api/v2/pipeline/2d0bc4e0-ad99-4f39-9c96-b44d1b0646d9/workflow?circle-token=${E2E_TESTS_API_TOKEN}" | jq -r '.items[].status')
+            apt-get update 
+            apt-get install -y jq
+
+            STATUS=$(curl -s "https://circleci.com/api/v2/pipeline/2d0bc4e0-ad99-4f39-9c96-b44d1b0646d9/workflow?circle-token=10f4a80a48e59254cc9896f49921cf37d8ee6a1d" | jq -r '.items[].status')
 
             echo "STATUS: ${STATUS}"
 
