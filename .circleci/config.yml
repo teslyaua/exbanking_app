@@ -1,5 +1,13 @@
 version: 2.1
 jobs:
+  test_job:
+      docker:
+      - image: mcr.microsoft.com/playwright:v1.28.0-focal
+      steps:
+      - checkout
+      - run:
+          name: Update NPM
+          command: "sudo npm install -g npm@5"
   trigger-e2e-tests:
     docker:
       - image: mcr.microsoft.com/playwright:v1.28.0-focal
@@ -13,7 +21,11 @@ jobs:
             PIPELINE_ID=$(curl --location --request POST 'https://circleci.com/api/v2/project/github/coingaming/hi_casino_e2e_tests/pipeline' \
             --header 'Content-Type: application/json' \
             -u "${E2E_TESTS_API_TOKEN}:" \
-            --data-raw '{"parameters": {"node-v-1": "10.1.1"}}' | jq -r '.id')
+            --data-raw '{
+                "parameters": {
+                    "node-v-1": "10.1.1"
+              }
+            }' | jq -r '.id')
 
             echo "export PIPELINE=$PIPELINE_ID" >> $BASH_ENV
       - run:
@@ -38,4 +50,9 @@ jobs:
 workflows:
   trigger-e2e-tests-workflow:
     jobs:
+      - test_job
+      - hold:
+          type: approval
+          requires:
+            - test_job
       - trigger-e2e-tests
