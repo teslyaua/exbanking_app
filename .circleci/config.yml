@@ -24,6 +24,7 @@ jobs:
             | jq -r '.id')
 
             echo "export PIPELINE=$PIPELINE_ID" >> $BASH_ENV
+            echo "PIPELINE_ID\n $PIPELINE"
       - run:
           name: Get status new pipeline
           command: |
@@ -47,7 +48,7 @@ workflows:
   trigger-e2e-tests-workflow:
     jobs:
       - test_job
-      - hold:
+      - hold_until_deploy_fully_comleted:
           type: approval
           requires:
             - test_job
