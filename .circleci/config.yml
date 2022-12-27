@@ -1,13 +1,5 @@
 version: 2.1
 jobs:
-  test_job:
-    docker:
-      - image: mcr.microsoft.com/playwright:v1.28.0-focal
-    steps:
-      - checkout
-      - run:
-          name: Test step for test job
-          command: echo "Test step"
   trigger-e2e-tests:
     docker:
       - image: mcr.microsoft.com/playwright:v1.28.0-focal
@@ -24,17 +16,13 @@ jobs:
             | jq -r '.id')
 
             echo "export PIPELINE=${PIPELINE_ID}" >> $BASH_ENV
-            echo "Test Kick off vars:"
-            echo "${PIPELINE_ID}"
-            echo "${PIPELINE}"
-            echo "${E2E_TESTS_API_TOKEN}"
       - run:
           name: Get status new pipeline
           command: |
-            echo "Test status vars:"
-            echo "${PIPELINE}"
-            echo "${E2E_TESTS_API_TOKEN}"
-            STATUS=$(curl "https://circleci.com/api/v2/pipeline/${PIPELINE}/workflow?circle-token=${E2E_TESTS_API_TOKEN}" | jq -r '.items[].status')
+            echo "PIPELINE ID: ${PIPELINE}"
+            STATUS=$(curl -s "https://circleci.com/api/v2/pipeline/${PIPELINE}/workflow?circle-token=${E2E_TESTS_API_TOKEN}" | jq -r '.items[].status')
+
+            echo "STATUS: ${STATUS}"
 
             while [ "${STATUS}" == "running" ]; do
               echo still running
@@ -53,11 +41,4 @@ jobs:
 workflows:
   trigger-e2e-tests-workflow:
     jobs:
-      - test_job
-      - hold_until_deploy_completed:
-          type: approval
-          requires:
-            - test_job
-      - trigger-e2e-tests:
-          requires:
-            - hold_until_deploy_completed
+      - trigger-e2e-tests
