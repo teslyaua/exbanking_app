@@ -20,7 +20,8 @@ jobs:
             apt-get install -y jq
             PIPELINE_ID=$(curl --location --request POST 'https://circleci.com/api/v2/project/github/coingaming/hi_casino_e2e_tests/pipeline' \
             --header 'Content-Type: application/json' \
-            -u "${E2E_TESTS_API_TOKEN}:" \
+            # -u "${E2E_TESTS_API_TOKEN}:" \
+            --header "Circle-Token: ${E2E_TESTS_API_TOKEN}" \
             --data-raw '{
                 "parameters": {
                     "node-v-1": "10.1.1"
