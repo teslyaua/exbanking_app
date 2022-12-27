@@ -60,4 +60,4 @@ workflows:
             - test_job
       - trigger-e2e-tests:
           requires:
-            - hold_until_deploy_comleted
+            - hold_until_deploy_completed
