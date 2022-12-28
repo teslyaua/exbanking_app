@@ -10,7 +10,7 @@ jobs:
           command: echo "Test step"
   trigger-e2e-tests:
     docker:
-      - image: cimg/base:stable
+      - image: mcr.microsoft.com/playwright:v1.28.0-focal
     steps:
       - checkout
       - run:
@@ -49,10 +49,11 @@ workflows:
   trigger-e2e-tests-workflow:
     jobs:
       - test_job
-      - hold:
+      - hold_until_deploy_completed:
+          name: "Wait until Deploy Prelive fully completed"
           type: approval
           requires:
             - test_job
       - trigger-e2e-tests:
           requires:
-                - hold
+                - "Wait until Deploy Prelive fully completed"
