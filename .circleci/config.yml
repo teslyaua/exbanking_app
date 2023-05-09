@@ -1,4 +1,14 @@
 version: 2.1
+parameters:
+ action:
+    type: enum
+    enum: [build, report]
+    default: build
+tests-folder:
+    type: string
+    default: ""
+    description: In order to run moore specific test set, please type on of the ->  backoffice | hi-casino | 8io
+
 jobs:
   test_job:
       docker:
