@@ -18,8 +18,10 @@ jobs:
       - run:
           name: Kick off new pipeline
           command: |  
-            apt-get update 
-            apt-get install -y jq
+            apk update
+            apk upgrade
+            apk add jq
+            apk add curl
             GH_USERNAME=TestUser
             echo "$GH_USERNAME"
             PIPELINE_ID=$(curl --location --request POST 'https://circleci.com/api/v2/project/github/coingaming/platform_e2e_tests/pipeline' \
