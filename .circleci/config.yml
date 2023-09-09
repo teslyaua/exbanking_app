@@ -10,17 +10,9 @@ tests-folder:
     description: In order to run moore specific test set, please type on of the ->  backoffice | hi-casino | 8io
 
 jobs:
-  test_job:
-      docker:
-      - image: cimg/base:stable
-      steps:
-      - checkout
-      - run:
-          name: Test step for test job
-          command: echo "Test step"
   e2e_tests:
     docker:
-      - image: mcr.microsoft.com/playwright:v1.28.0-focal
+      - image: cimg/base:stable
     steps:
       - checkout
       - run:
@@ -36,7 +28,7 @@ jobs:
             -u "${E2E_TESTS_API_TOKEN}:" \
             | jq -r '.id')
 
-      #       echo "export PIPELINE=${PIPELINE_ID}" >> $BASH_ENV
+            echo "export PIPELINE=${PIPELINE_ID}" >> $BASH_ENV
       # - run:
       #     name: Get status new pipeline
       #     command: |
