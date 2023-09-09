@@ -22,7 +22,7 @@ jobs:
             apt-get install -y jq
             GH_USERNAME=TestUser
             echo "$GH_USERNAME"
-            PIPELINE_ID=$(curl --location --request POST 'https://circleci.com/api/v2/project/github/coingaming/hi_casino_e2e_tests/pipeline' \
+            PIPELINE_ID=$(curl --location --request POST 'https://circleci.com/api/v2/project/github/coingaming/platform_e2e_tests/pipeline' \
             -d '{ "parameters": { "tests-folder": "backoffice/finance-admin", "author": "$GH_USERNAME"  } }' \
             --header 'Content-Type: application/json' \
             -u "${E2E_TESTS_API_TOKEN}:" \
