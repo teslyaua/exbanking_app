@@ -28,7 +28,8 @@ jobs:
           command: |  
             apt-get update 
             apt-get install -y jq
-            echo "$CIRCLE_USERNAME"
+            GH_USERNAME=TestUser
+            echo "$GH_USERNAME"
       #       PIPELINE_ID=$(curl --location --request POST 'https://circleci.com/api/v2/project/github/coingaming/hi_casino_e2e_tests/pipeline' \
       #       -d '{ "parameters": { "tests-folder": "8io" } }' \
       #       --header 'Content-Type: application/json' \
